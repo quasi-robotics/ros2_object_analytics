@@ -93,10 +93,10 @@ void OrganizedMultiPlaneSegmenter::segmentObjects_ConnectComponent(
     label.label = i;
     labels->points.push_back(label);
   }
-  std::vector<bool> plane_labels;
-  plane_labels.resize(cloud->size(), false);
   euclidean_cluster_comparator_->setInputCloud(cloud);
   euclidean_cluster_comparator_->setLabels(labels);
+
+  auto plane_labels = boost::make_shared<std::set<std::uint32_t> >();
   euclidean_cluster_comparator_->setExcludeLabels(plane_labels);
 
   PointCloud<Label> euclidean_labels;
