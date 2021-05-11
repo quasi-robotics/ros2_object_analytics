@@ -25,25 +25,25 @@ def generate_launch_description():
     return LaunchDescription([
         # object_analytics_node
         launch_ros.actions.Node(
-            package='object_analytics_node', node_executable='object_analytics_node',
+            package='object_analytics_node', executable='object_analytics_node',
             arguments=['--tracking', '--localization'],
             remappings=[
                 ('/object_analytics/detected_objects', '/ros2_openvino_toolkit/detected_objects'),
-                ('/object_analytics/rgb', '/camera/color/image_raw'),
-                ('/object_analytics/pointcloud', '/camera/pointcloud')],
+                ('/object_analytics/rgb', '/realsense/color/image_raw'),
+                ('/object_analytics/pointcloud', '/realsense/depth/color/points')],
             output='screen'),
 
         # object_analytics_rviz
         launch_ros.actions.Node(
-            package='object_analytics_rviz', node_executable='image_publisher',
+            package='object_analytics_rviz', executable='image_publisher',
             remappings=[
-                ('/object_analytics/rgb', '/camera/color/image_raw')],
+                ('/object_analytics/rgb', '/realsense/color/image_raw')],
             output='screen'),
         launch_ros.actions.Node(
-            package='object_analytics_rviz', node_executable='marker_publisher', output='screen'),
+            package='object_analytics_rviz', executable='marker_publisher', output='screen'),
 
         # rviz
         launch_ros.actions.Node(
-            package='rviz2', node_executable='rviz2', output='screen',
+            package='rviz2', executable='rviz2', output='screen',
             arguments=['--display-config', default_rviz]),
     ])
