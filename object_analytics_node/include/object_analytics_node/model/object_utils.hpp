@@ -41,8 +41,8 @@ POINT_CLOUD_REGISTER_POINT_STRUCT(
   (float, x, x)                   // field x
     (float, y, y)                 // field y
     (float, z, z)                 // field z
-    (uint32_t, pixel_x, pixel_x)  // field pixel x
-    (uint32_t, pixel_y, pixel_y)  // field pixel y
+    (std::uint32_t, pixel_x, pixel_x)  // field pixel x
+    (std::uint32_t, pixel_y, pixel_y)  // field pixel y
 )
 
 namespace object_analytics_node

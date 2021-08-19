@@ -66,8 +66,8 @@ TrackingNode::TrackingNode(rclcpp::NodeOptions options)
 void TrackingNode::rgb_cb(const sensor_msgs::msg::Image::ConstSharedPtr & img)
 {
   RCUTILS_LOG_DEBUG(
-    "received rgb frame frame_id(%s), stamp(sec(%ld),nsec(%ld)), "
-    "q_size(%d)!\n",
+    "received rgb frame frame_id(%s), stamp(sec(%d),nsec(%d)), "
+    "q_size(%ld)!\n",
     img->header.frame_id.c_str(), img->header.stamp.sec,
     img->header.stamp.nanosec, rgbs_.size());
 
@@ -111,14 +111,14 @@ void TrackingNode::obj_cb(
   if (objs->objects_vector.size() == 0) {return;}
 
   RCUTILS_LOG_DEBUG(
-    "received obj detection frame_id(%s), stamp(sec(%ld),nsec(%ld)), "
-    "img_buff_count(%d)!\n",
+    "received obj detection frame_id(%s), stamp(sec(%d),nsec(%d)), "
+    "img_buff_count(%ld)!\n",
     objs->header.frame_id.c_str(), objs->header.stamp.sec,
     objs->header.stamp.nanosec, rgbs_.size());
   std::vector<sensor_msgs::msg::Image::ConstSharedPtr>::iterator rgb =
     rgbs_.begin();
   while (rgb != rgbs_.end()) {
-    RCUTILS_LOG_DEBUG("iterate queue buffer stamp(sec(%ld),nsec(%ld))!\n",
+    RCUTILS_LOG_DEBUG("iterate queue buffer stamp(sec(%d),nsec(%d))!\n",
       (*rgb)->header.stamp.sec, (*rgb)->header.stamp.nanosec);
     if ((*rgb)->header.stamp < this_detection_) {
       RCLCPP_DEBUG(get_logger(), "slower, dropped");
@@ -129,7 +129,7 @@ void TrackingNode::obj_cb(
     if ((*rgb)->header.stamp == this_detection_) {
       // TBD: Need consider to check whether worth to perform rectify.
 
-      RCUTILS_LOG_DEBUG("rectify frame_id(%s), stamp(sec(%ld),nsec(%ld))\n",
+      RCUTILS_LOG_DEBUG("rectify frame_id(%s), stamp(sec(%d),nsec(%d))\n",
         objs->header.frame_id.c_str(), objs->header.stamp.sec,
         objs->header.stamp.nanosec);
       tm_->detect(mat_cv, this_obj_);

@@ -264,7 +264,7 @@ void Streamer_node::track_cb(
 
   if (objs->tracked_objects.size() > 0) {
     num_response_++;
-    RCUTILS_LOG_DEBUG("objs count(%d)\n", objs->tracked_objects.size());
+    RCUTILS_LOG_DEBUG("objs count(%ld)\n", objs->tracked_objects.size());
   }
 
   for (auto t : objs->tracked_objects) {

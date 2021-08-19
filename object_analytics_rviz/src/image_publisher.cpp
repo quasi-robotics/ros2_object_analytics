@@ -93,7 +93,7 @@ private:
   {
     if (img->header.stamp != tra->header.stamp) {
       RCLCPP_WARN(get_logger(), "timestamp not match, do nothing");
-      RCLCPP_WARN(get_logger(), "...... T==%ld.%ld, L==%ld.%ld",
+      RCLCPP_WARN(get_logger(), "...... T==%d.%d, L==%d.%d",
         tra->header.stamp.sec, tra->header.stamp.nanosec,
         img->header.stamp.sec, img->header.stamp.nanosec);
       return;
